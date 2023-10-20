@@ -24,12 +24,6 @@
             white-space: nowrap;
             overflow: hidden;
             border-right: 2px solid black; /* Create a cursor effect */
-            animation: typing 2s steps(20, end) infinite;
-        }
-        @keyframes typing {
-            from, to {
-                width: 0;
-            }
         }
         .container {
             max-width: 800px;
@@ -59,13 +53,47 @@
 </head>
 <body>
     <header>
-        <h1>Coding and Programming Facts</h1>
+        <h1 id="typing-title">Coding and Programming Facts</h1>
     </header>
     <div class="container">
         <!-- ... (your facts and content here) ... -->
     </div>
+
+    <script>
+        // JavaScript to create the typing animation
+        const titleElement = document.getElementById("typing-title");
+        const titleText = titleElement.innerText;
+        titleElement.innerText = "";
+
+        function typeTitle() {
+            let i = 0;
+            function typeCharacter() {
+                if (i < titleText.length) {
+                    titleElement.innerHTML += titleText.charAt(i);
+                    i++;
+                    setTimeout(typeCharacter, 100); // Adjust typing speed (milliseconds)
+                } else {
+                    setTimeout(eraseTitle, 1000); // Wait for 1 second before erasing
+                }
+            }
+
+            function eraseTitle() {
+                if (titleElement.innerText.length > 0) {
+                    titleElement.innerText = titleElement.innerText.slice(0, -1);
+                    setTimeout(eraseTitle, 50); // Adjust erasing speed (milliseconds)
+                } else {
+                    typeTitle(); // Start typing again
+                }
+            }
+
+            typeCharacter();
+        }
+
+        typeTitle();
+    </script>
 </body>
 </html>
+
 
 
         <!-- ... (your facts and content here) ... -->
